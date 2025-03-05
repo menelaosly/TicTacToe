@@ -89,7 +89,7 @@ const choseNextToDisappear = () => {
     if (turn === players.CIRCLE && playedO.length === 3) {
         playedO[0].classList.add("next");
     }
-    else if (playedX.length === 3) {
+    else if (turn === players.CROSS && playedX.length === 3) {
         playedX[0].classList.add("next");
     }
 }
