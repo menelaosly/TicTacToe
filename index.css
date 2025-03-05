@@ -202,3 +202,14 @@ h1 {
         width: calc(var(--tile-size) * 3 + var(--gap) * 4 - 50px + var(--width));
     }
 }
+
+@media screen and (max-width: 490px) {
+
+    .game {
+        margin-bottom: 40px;
+    }
+    h1 {
+        font-size: 3em;
+        margin-bottom: auto;
+    }
+}
