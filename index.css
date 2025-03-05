@@ -212,4 +212,13 @@ h1 {
         font-size: 3em;
         margin-bottom: auto;
     }
+
+    .result h2 {
+        font-size: .75em;
+        margin-bottom: 40px;
+    }
+
+    .result button {
+        width: 80%;
+    }
 }
