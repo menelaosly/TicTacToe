@@ -15,6 +15,9 @@ const winningMatches = {
     diagonal2: [[2, 0], [1, 1], [0, 2]]
 }
 
+let playedX = [];
+let playedO = [];
+
 const tiles = document.querySelectorAll(".tile");
 const game = document.querySelector(".game");
 let turn;
@@ -29,6 +32,8 @@ const initBoard = () => {
     const line = document.querySelector(".linethrough");
     game.style.pointerEvents = "all";
     line && game.removeChild(line);
+    playedX = [];
+    playedO = [];
 };
 
 const checkBoard = (turn, i, j) => {
@@ -65,7 +70,7 @@ const winGame = (combination) => {
     }, 3000);
 
     const highlight = winningMatches[combination];
-    for (let [index,h] of highlight.entries()) {
+    for (let [index, h] of highlight.entries()) {
         const elId = h[0] * 3 + h[1];
         setTimeout(() => {
             document.getElementById(elId).classList.add(`won${turn}`);
@@ -73,25 +78,56 @@ const winGame = (combination) => {
     }
 }
 
-const drawGame = () => {
+const tieGame = () => {
     setTimeout(() => {
         result.querySelector("h2").innerHTML = "Draw!";
         result.style.display = "flex";
     }, 2000);
 }
 
+const choseNextToDisappear = () => {
+    if (turn === players.CIRCLE && playedO.length === 3) {
+        playedO[0].classList.add("next");
+    }
+    else if (playedX.length === 3) {
+        playedX[0].classList.add("next");
+    }
+}
+
+const getIndexesFromId = (id) => {
+    return [Math.floor(id / 3), id % 3];
+}
+
 const chooseTile = () => {
-    const i = Math.floor(event.target.id / 3);
-    const j = event.target.id % 3;
+    const [i, j] = getIndexesFromId(event.target.id);
 
     if (table[i][j]) return;
     event.target.classList.toggle(turn);
     table[i][j] = turn;
 
+    if (turn === players.CIRCLE) {
+        const disappearedTile = playedO.length === 3 ? playedO.shift() : null;
+        if (disappearedTile) {
+            disappearedTile.className = "tile";
+            const [i, j] = getIndexesFromId(disappearedTile.id);
+            table[i][j] = null;
+        }
+        playedO.push(event.target);
+    }
+    else {
+        const disappearedTile = playedX.length === 3 ? playedX.shift() : null;
+        if (disappearedTile) {
+            disappearedTile.className = "tile";
+            const [i, j] = getIndexesFromId(disappearedTile.id);
+            table[i][j] = null;
+        }
+        playedX.push(event.target);
+    }
+
     const winComb = checkBoard(turn, i, j);
 
     if (winComb === "draw") {
-        drawGame();
+        tieGame();
         return;
     }
     else if (winComb) {
@@ -101,6 +137,7 @@ const chooseTile = () => {
     }
 
     turn = turn === players.CROSS ? players.CIRCLE : players.CROSS;
+    choseNextToDisappear();
 }
 
 initBoard();

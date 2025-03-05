@@ -17,6 +17,13 @@ body {
     align-items: center;
 }
 
+p {
+    color: #adfeff;
+    text-align: center;
+    max-width: 70%;
+    margin-bottom: 3em;
+}
+
 button {
     -webkit-appearance: none;
     box-shadow: none;
@@ -26,7 +33,7 @@ button {
 }
 
 h1 {
-    margin-bottom: 1em;
+    margin-bottom: 0;
     font-family: "Moirai One";
     font-size: 5em;
     background: linear-gradient(to right, #00DBDE, #FC00FF);
@@ -83,6 +90,10 @@ h1 {
     background: #feb5ff;
 }
 
+.tile.next {
+    opacity: .4;
+}
+
 .tile::after,
 .tile::before {
     transition: all .4s ease;
@@ -92,6 +103,7 @@ h1 {
 
 .tile.x::after,
 .tile.x::before {
+    box-shadow: 0px 0px 20px 4px #0efcff80;
     width: 20px;
     height: 60px;
     background: #00DBDE;
@@ -110,6 +122,7 @@ h1 {
     width: 25px;
     height: 25px;
     border: 15px solid #FC00FF;
+    box-shadow: 0px 0px 20px 4px #FC00FF80;
     border-radius: 100px;
 }
 
@@ -215,14 +228,14 @@ h1 {
     }
 }
 
-@media screen and (max-width: 490px) {
+@media screen and (max-width: 640px) {
 
     .game {
+        margin-top: auto;
         margin-bottom: 40px;
     }
     h1 {
         font-size: 3em;
-        margin-bottom: auto;
     }
 
     .result h2 {
