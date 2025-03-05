@@ -1,0 +1,204 @@
+@import url('https://fonts.googleapis.com/css2?family=Moirai+One&display=swap');
+
+:root {
+    --border-radius: 10px;
+    --tile-size: 100px;
+    --gap: 10px;
+}
+
+body {
+    margin: 0;
+    height: 100dvh;
+    width: 100dvw;
+    background: linear-gradient(to bottom, rgb(0, 62, 128), rgb(23, 0, 128));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    -webkit-appearance: none;
+    box-shadow: none;
+    border: 0;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+h1 {
+    margin-bottom: 1em;
+    font-family: "Moirai One";
+    font-size: 5em;
+    background: linear-gradient(to right, #00DBDE, #FC00FF);
+    color: transparent;
+    background-clip: text;
+}
+
+.game {
+    position: relative;
+}
+
+.board {
+    display: grid;
+    gap: var(--gap);
+    padding: var(--gap);
+    grid-template-columns: repeat(3, var(--tile-size));
+    background: #0a0038;
+    border-radius: var(--border-radius);
+}
+
+.tile {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: var(--tile-size);
+    height: var(--tile-size);
+    border-radius: var(--border-radius);
+    background: rgb(19, 2, 105);
+    transition: all .4s ease;
+}
+
+
+.tile>div {
+    position: absolute;
+    z-index: 10;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+}
+
+.tile:hover {
+    background: rgb(15, 0, 82);
+}
+
+.tile::after,
+.tile::before {
+    transition: all .4s ease;
+    content: "";
+    position: absolute;
+}
+
+.tile.x::after,
+.tile.x::before {
+    width: 20px;
+    height: 60px;
+    background: #00DBDE;
+    border-radius: calc(var(--border-radius)/2);
+}
+
+.tile.x::after {
+    rotate: -45deg;
+}
+
+.tile.x::before {
+    rotate: 45deg;
+}
+
+.tile.o::before {
+    width: 25px;
+    height: 25px;
+    border: 15px solid #FC00FF;
+    border-radius: 100px;
+}
+
+
+.linethrough {
+    --width: 0px;
+    width: 0px;
+    height: 4px;
+    border-radius: 10px;
+    background: white;
+    position: absolute;
+    animation: strikethrough 1s ease forwards;
+    transform-origin: left center;
+}
+
+.linethrough#h1 {
+    left: 20px;
+    top: calc(50px + var(--gap));
+}
+
+.linethrough#h2 {
+    left: 20px;
+    top: calc(150px + var(--gap) * 2);
+}
+
+.linethrough#h3 {
+    left: 20px;
+    top: calc(250px + var(--gap) * 3);
+}
+
+.linethrough#v1 {
+    rotate: 90deg;
+    top: 20px;
+    left: calc(50px + var(--gap));
+}
+
+.linethrough#v2 {
+    rotate: 90deg;
+    top: 20px;
+    left: calc(150px + var(--gap) * 2);
+}
+
+.linethrough#v3 {
+    rotate: 90deg;
+    top: 20px;
+    left: calc(250px + var(--gap) * 3);
+}
+
+.linethrough#diagonal1 {
+    rotate: 45deg;
+    top: 20px;
+    left: 20px;
+    --width: 125px;
+}
+
+.linethrough#diagonal2 {
+    rotate: 135deg;
+    top: 20px;
+    left: calc(100% - 20px);
+    --width: 125px;
+}
+
+.result {
+    z-index: 10;
+    position: fixed;
+    inset: 0;
+    width: 100dvw;
+    height: 100dvh;
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 100px;
+    transition: all 1s ease;
+}
+
+.result h2 {
+    margin: 0;
+    font-family: "Moirai One";
+    background: linear-gradient(to right, #00DBDE, #FC00FF);
+    color: transparent;
+    background-clip: text;
+}
+
+.result button {
+    z-index: 10;
+    height: 50px;
+    width: 100px;
+    background: linear-gradient(to right, #00DBDE, #FC00FF);
+    border-radius: var(--border-radius);
+}
+
+@keyframes strikethrough {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: calc(var(--tile-size) * 3 + var(--gap) * 4 - 50px + var(--width));
+    }
+}
