@@ -62,7 +62,15 @@ const winGame = (combination) => {
     result.querySelector("h2").innerHTML = "Winner!";
     setTimeout(() => {
         result.style.display = "flex";
-    }, 2000);
+    }, 3000);
+
+    const highlight = winningMatches[combination];
+    for (let [index,h] of highlight.entries()) {
+        const elId = h[0] * 3 + h[1];
+        setTimeout(() => {
+            document.getElementById(elId).classList.add(`won${turn}`);
+        }, 400 * index);
+    }
 }
 
 const drawGame = () => {

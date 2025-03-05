@@ -71,6 +71,18 @@ h1 {
     background: rgb(15, 0, 82);
 }
 
+.tile.wonx {
+    transition: background 1s ease;
+    transition-delay: .4s;
+    background: #adfeff;
+}
+
+.tile.wono {
+    transition: background 1s ease;
+    transition-delay: .4s;
+    background: #feb5ff;
+}
+
 .tile::after,
 .tile::before {
     transition: all .4s ease;
